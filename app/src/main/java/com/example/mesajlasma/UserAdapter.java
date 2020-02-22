@@ -31,17 +31,25 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // MainActivity'de Göstereceğimiz her bir View ne olsun.
+
         View view = LayoutInflater.from(context).inflate(R.layout.user_layout, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        // Pozisyona göre ekleme yapma
+
         holder.textView.setText(list.get(position));
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Intent ile ChatActivity'e gidiyoruz
+
                 Intent intent = new Intent(activity, ChatActivity.class);
+                // ChatActivity'de kullanmak üzere kullanici ismini ve tıkladığı kullanicinin index değerindeli String'ini ChatActivity'ye yolluyoruz
+
                 intent.putExtra("userName", userName);
                 intent.putExtra("otherName", list.get(position).toString());
                 activity.startActivity(intent);
@@ -51,6 +59,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
+        // Kullanicilarimiz ne kadar ise o kadar uzunlukta veri göster
+
         return list.size();
     }
 

@@ -1,7 +1,7 @@
 package com.example.mesajlasma;
 
 public class MesajModel {
-
+    // Mesajlaşma işleminde gönderenin ve alıcının belli olması için Model bir sınıf tanımlıyoruz.
     private String from, text;
 
     public MesajModel(String from, String text) {

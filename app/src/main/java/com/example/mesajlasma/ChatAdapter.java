@@ -18,6 +18,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     Activity activity;
     String userName;
     Boolean state;
+    // Kullanicinin gördügü ekran alıcının aldığı ekranı ayırt etmek için
+
     int viewSend = 1, viewReceiver = 2;
 
     public ChatAdapter(Context context, List<MesajModel> list, Activity activity, String userName) {
@@ -34,6 +36,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if (viewType == viewSend) {
+            // Kullanıcı bakış açısı
             view = LayoutInflater.from(context).inflate(R.layout.send_layout, parent, false);
             return new ViewHolder(view);
         } else {
@@ -45,6 +48,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        // Layoutlarda yolladığımız ve aldıgımız mesajların gözükmesi.
         holder.textView.setText(list.get(position).getText().toString());
 
     }
@@ -60,9 +64,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            if (state){
+            if (state) {
+                //Kullanicinin gördüğü mesajlara göre TextView dizaynı
+
                 textView = itemView.findViewById(R.id.tvSend);
-            }else{
+            } else {
                 textView = itemView.findViewById(R.id.tvReceived);
             }
 
@@ -73,9 +79,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         if (list.get(position).getFrom().equals(userName)) {
+            // Eğer kullanici yazıklarına bakıyorsa
+
             state = true;
             return viewSend;
         } else {
+            // Eğer kullanici aldıklarına bakıyorsa
+
             state = false;
             return viewReceiver;
         }

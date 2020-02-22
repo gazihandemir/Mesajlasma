@@ -31,20 +31,34 @@ public class GirisActivity extends AppCompatActivity {
     public void tanimlama() {
         edKullaniciAdi = findViewById(R.id.edKullaniciAdi);
         btnGirisYap = findViewById(R.id.btnGirisYap);
+        // FirebaseDatabase kullanmak için bir nesne oluşturuyoruz
+
         firebaseDatabase = FirebaseDatabase.getInstance();
+        // referans oluşturuyoruz
+
         reference = firebaseDatabase.getReference();
 
 
     }
 
     public void ekle(final String kAdi) {
-        reference.child("Kullanicilar").child(kAdi).child("Kullanici").setValue(kAdi).addOnCompleteListener(new OnCompleteListener<Void>() {
+        // Kullanicilar -> Parametre Kullanici adi -> kullanici ->> değer atama
+
+        reference.child("Kullanicilar").child(kAdi).child("Kullanici").setValue(kAdi)
+                // işlem gerçekleştiyse
+
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+                // işlem başarılı ise
+
                 if (task.isSuccessful()) {
 
                     Toast.makeText(GirisActivity.this, "Başarıyla giriş Yaptınız ", Toast.LENGTH_SHORT).show();
+                    // intent ile Giris activitye git
                     Intent intent = new Intent(GirisActivity.this, MainActivity.class);
+                    // GirisActivity'de kullanmak için kullanici adini gönderiyoruz.
+
                     intent.putExtra("kAdi", kAdi);
                     startActivity(intent);
                 }
@@ -53,6 +67,8 @@ public class GirisActivity extends AppCompatActivity {
     }
 
     public void girisYap(View view) {
+        // Giris yapmak için
+
         String kullaniciAdi = edKullaniciAdi.getText().toString();
         edKullaniciAdi.setText("");
         ekle(kullaniciAdi);
